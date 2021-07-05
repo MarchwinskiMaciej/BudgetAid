@@ -1,5 +1,6 @@
 package com.demo.budget.aid.app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.demo.budget.aid.app.model.Registry;
@@ -17,17 +18,6 @@ public class RegistryService {
         this.repository = repository;
     }
 
-    public Registry getRegistryById(long id) {
-        return repository.findById(id).get();
-    }
-
-    public Registry saveRegistry(String registryName, double balance) {
-        Registry tmp = new Registry();
-        tmp.setRegistryName(registryName);
-        tmp.setBalance(balance);
-        return repository.save(tmp);
-    }
-
     public Registry recharge(String registryName, Double amount) {
         Registry currentRegistry = repository.findByRegistryName(registryName);
         Double newAmount = currentRegistry.getBalance() + amount;
@@ -43,5 +33,11 @@ public class RegistryService {
         repository.save(fromRegistry);
         repository.save(toRegistry);
         return List.of(fromRegistry, toRegistry);
+    }
+
+    public List<Registry> balances() {
+        List<Registry> result = new ArrayList<>();
+        repository.findAll().forEach(result::add);
+        return result;
     }
 }
