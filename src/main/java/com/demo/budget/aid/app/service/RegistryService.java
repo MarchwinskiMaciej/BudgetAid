@@ -40,6 +40,8 @@ public class RegistryService {
         Registry toRegistry = repository.findByRegistryName(toRegistryName);
         fromRegistry.setBalance(fromRegistry.getBalance() - amount);
         toRegistry.setBalance(toRegistry.getBalance() + amount);
+        repository.save(fromRegistry);
+        repository.save(toRegistry);
         return List.of(fromRegistry, toRegistry);
     }
 }
