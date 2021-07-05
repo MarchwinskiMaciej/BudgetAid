@@ -22,12 +22,6 @@ public class RegistryService {
         return repository.findById(id).get();
     }
 
-    public Registry saveRegistry(String registryName, double balance) {
-        Registry tmp = new Registry();
-        tmp.setRegistryName(registryName);
-        tmp.setBalance(balance);
-        return repository.save(tmp);
-    }
 
     public Registry recharge(String registryName, Double amount) {
         Registry currentRegistry = repository.findByRegistryName(registryName);
@@ -37,8 +31,13 @@ public class RegistryService {
     }
 
     public List<Registry> transfer(String fromRegistryName, String toRegistryName, Double amount) {
+        // Here could be also added logic for saving transactions, we could take current date, we have both registries and an amount
+        // It would required additional Entity like Transaction which could be now created and pushed into db
         Registry fromRegistry  = repository.findByRegistryName(fromRegistryName);
         Registry toRegistry = repository.findByRegistryName(toRegistryName);
+
+        // For those operations with amount some additional checks would be required,
+        // for example ensuring that fromRegistry has enough resources
         fromRegistry.setBalance(fromRegistry.getBalance() - amount);
         toRegistry.setBalance(toRegistry.getBalance() + amount);
         repository.save(fromRegistry);
