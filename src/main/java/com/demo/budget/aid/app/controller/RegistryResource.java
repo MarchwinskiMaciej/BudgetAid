@@ -23,7 +23,7 @@ public class RegistryResource {
         return ResponseEntity.ok(registryService.getRegistryById(id));
     }
 
-    @PostMapping("/registry/recharge")
+    @PutMapping("/registry/recharge")
     public ResponseEntity<Registry> recharge(@RequestParam String registryName, @RequestParam Double amount) {
         return ResponseEntity.ok(registryService.recharge(registryName, amount));
     }

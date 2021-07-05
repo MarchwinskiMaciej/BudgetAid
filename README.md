@@ -3,17 +3,18 @@ Demo app for home budget management.
 
 ## Available endpoints
 
-    @PostMapping("/registry/recharge")
+    @PutMapping("/registry/recharge")
     @PostMapping("/registry/transfer")
-    @PostMapping("/registry/balances")
-    @GetMapping("/registry/{id}")
-
+    @GetMapping("/registry/balances")
 
 ## Tests coverage
 
 Tests implemented covers all created methods,
 there is used MockMvc framework and custom application-tests.properties file which uses in-memory h2 db with pre-loaded data for registries.
 
+There is additional endpoint implemented for tests purposes:
+
+    @GetMapping("/registry/{id}")
 
 ## Used database and configuration
 

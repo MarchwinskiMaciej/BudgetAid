@@ -1,7 +1,6 @@
 package com.demo.budget.aid.app;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,8 +36,8 @@ class BudgetAidApplicationTests {
 
     @Test
     @Order(2)
-    public void postRegistryRechargeTest() throws Exception {
-        mockMvc.perform(post("/registry/recharge?registryName=Wallet&amount=1234"))
+    public void putRegistryRechargeTest() throws Exception {
+        mockMvc.perform(put("/registry/recharge?registryName=Wallet&amount=1234"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("{\"id\":1,\"balance\":2184.0,\"registryName\":\"Wallet\"}"));
     }
