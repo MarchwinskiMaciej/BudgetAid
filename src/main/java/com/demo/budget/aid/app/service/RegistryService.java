@@ -19,10 +19,17 @@ public class RegistryService {
         return repository.findById(id).get();
     }
 
-    public Registry saveRegistry(String registryName, double balance){
+    public Registry saveRegistry(String registryName, double balance) {
         Registry tmp = new Registry();
         tmp.setRegistryName(registryName);
         tmp.setBalance(balance);
         return repository.save(tmp);
+    }
+
+    public Registry recharge(String registryName, Double amount) {
+        Registry currentRegistry = repository.findByRegistryName(registryName);
+        Double newAmount = currentRegistry.getBalance() + amount;
+        currentRegistry.setBalance(newAmount);
+        return repository.save(currentRegistry);
     }
 }

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RegistryRepository extends CrudRepository<Registry, Long> {
     Optional<Registry> findById(Long id);
+
+    Registry findByRegistryName(String registryName);
 }
