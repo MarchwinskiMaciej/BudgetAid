@@ -2,6 +2,7 @@ package com.demo.budget.aid.app.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.demo.budget.aid.app.model.Registry;
 import com.demo.budget.aid.app.repository.RegistryRepository;
@@ -19,7 +20,12 @@ public class RegistryService {
     }
 
     public Registry getRegistryById(long id) {
-        return repository.findById(id).get();
+        Optional<Registry> result = repository.findById(id);
+        if (result.isPresent()) {
+            return result.get();
+        } else {
+            throw new IllegalArgumentException("Registry with id : " + id + "could not be found.");
+        }
     }
 
 
@@ -33,7 +39,7 @@ public class RegistryService {
     public List<Registry> transfer(String fromRegistryName, String toRegistryName, Double amount) {
         // Here could be also added logic for saving transactions, we could take current date, we have both registries and an amount
         // It would required additional Entity like Transaction which could be now created and pushed into db
-        Registry fromRegistry  = repository.findByRegistryName(fromRegistryName);
+        Registry fromRegistry = repository.findByRegistryName(fromRegistryName);
         Registry toRegistry = repository.findByRegistryName(toRegistryName);
 
         // For those operations with amount some additional checks would be required,
