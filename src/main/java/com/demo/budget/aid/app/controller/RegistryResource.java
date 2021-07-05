@@ -1,5 +1,7 @@
 package com.demo.budget.aid.app.controller;
 
+import java.util.List;
+
 import com.demo.budget.aid.app.model.Registry;
 import com.demo.budget.aid.app.service.RegistryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,12 @@ public class RegistryResource {
 
 
     @PostMapping("/registry/recharge")
-    public ResponseEntity<Registry> recharge(@RequestParam String registryName, @RequestParam Double amount ){
+    public ResponseEntity<Registry> recharge(@RequestParam String registryName, @RequestParam Double amount) {
         return ResponseEntity.ok(registryService.recharge(registryName, amount));
+    }
+
+    @PostMapping("registry/transfer")
+    public ResponseEntity<List<Registry>> transfer(@RequestParam String fromRegistryName, @RequestParam String toRegistryName, @RequestParam Double amount) {
+        return ResponseEntity.ok(registryService.transfer(fromRegistryName, toRegistryName, amount));
     }
 }

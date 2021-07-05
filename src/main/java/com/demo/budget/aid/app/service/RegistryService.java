@@ -1,5 +1,7 @@
 package com.demo.budget.aid.app.service;
 
+import java.util.List;
+
 import com.demo.budget.aid.app.model.Registry;
 import com.demo.budget.aid.app.repository.RegistryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +33,13 @@ public class RegistryService {
         Double newAmount = currentRegistry.getBalance() + amount;
         currentRegistry.setBalance(newAmount);
         return repository.save(currentRegistry);
+    }
+
+    public List<Registry> transfer(String fromRegistryName, String toRegistryName, Double amount) {
+        Registry fromRegistry  = repository.findByRegistryName(fromRegistryName);
+        Registry toRegistry = repository.findByRegistryName(toRegistryName);
+        fromRegistry.setBalance(fromRegistry.getBalance() - amount);
+        toRegistry.setBalance(toRegistry.getBalance() + amount);
+        return List.of(fromRegistry, toRegistry);
     }
 }
