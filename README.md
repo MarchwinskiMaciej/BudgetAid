@@ -22,6 +22,8 @@ It could be started as well with java command and installed with installer as st
 http://localhost:8082. Example configuration is described in application.properties file in resources.
 ## How to start an app
 
+Java Version used : 11
+
 First ensure you have running db instance and proper configuration in application.properties file.
 Perform **mvn clean install** command and when application is built and tests passed you should be able to start it with
 your IDE like IntelliJ Idea or with following command:
